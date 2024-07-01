@@ -1,0 +1,83 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+{%load static%}
+<div style="background-image:  url(''); background-repeat:no-repeat;background-size:cover;  height:687px; width:100%;">
+
+    <div class="container">
+        {{election_name}}
+        <table class="table table-dark table-hover table-stripped">
+            <thead>
+                <th>Id</th>
+                <th>Candidate Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Political Party</th>
+                <th>Caste</th>
+                <th>Address</th>
+                <th>Votes</th>
+            </thead>
+
+            <tbody>
+                {%for i in details%}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.candidate_name}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.political_party}}</td>
+                    <td>{{i.caste}}</th>
+                    <td>{{i.Address}}</th>
+                    <td>{{i.Vote}}</th>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+        <br>
+        {%if end_date < today %}
+
+        <h1>Winner of {{election_name}}</h1>
+
+        {%if winner%}
+        <table class="table table-dark table-hover table-stripped">
+            <thead>
+                <th>Id</th>
+                <th>Candidate Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Political Party</th>
+                <th>Caste</th>
+                <th>Address</th>
+                <th>Votes</th>
+            </thead>
+
+            <tbody>
+                {%for i in winner%}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.candidate_name}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.gender}}</td>
+                    <td>{{i.political_party}}</td>
+                    <td>{{i.caste}}</th>
+                    <td>{{i.Address}}</th>
+                    <td>{{i.Vote}}</th>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        {%endif%}
+        {%endif%}
+    </div>
+</div>
+
+
+
+{%endblock%}

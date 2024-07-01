@@ -1,0 +1,80 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+<style>
+    .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.box > div { /*The > denotes only the first or immediate child will be affected*/
+  width: 600px;
+  height: auto;
+  /*border: dotted;
+*/
+}
+</style>
+
+<div style="background-image:  url('/media/home.jpg'); background-repeat:no-repeat;background-size:cover;  height:687px; width:100%;">
+    
+    <div class="box">
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <div class="row">
+            <div class="col-md-4">
+                <img style="height: 200px;width: 180px;" src="/media/vote.png">
+
+            </div>
+
+            <div class="col-md-8">
+                <form method="POST" action="/Add_Candidates/" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1>Add Candidate</h1>
+                <hr>
+                <label class="form-label">Candidate Name</label>
+                <input class="form-control" type="text" name="candidate_name" required>
+                <br>
+
+                <label class="form-label">Age</label>
+                <input class="form-control" type="text" name="age" required>
+                <br>
+                <label class="form-label">Gender</label>
+                <input class="form-control" type="text" name="gender" required>
+                <br>
+
+                <label class="form-label">Political Party</label>
+                <input class="form-control" type="text" name="political_party" required>
+                <br>
+                <label class="form-label">Caste</label>
+                <input class="form-control" type="text" name="caste" required>
+                <br>
+                <label class="form-label">Address</label>
+                <input class="form-control" type="text" name="Address" required>
+                <br>
+
+                <label class="form-label">Election Name</label>
+                <select class="form-select" aria-label="Default select example" name="subject">
+                {% for i in data%}
+                                <option selected value="{{i.election_name}}" name = "subject"> {{i.election_name}}</option>
+                {% endfor %}
+                </select>
+
+                <input class="btn btn-secondary" type="submit" name="" value="Add Candidate Detials">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{%endblock%}

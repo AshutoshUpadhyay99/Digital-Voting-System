@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digital Voting System</title>
+
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@1&family=Poppins:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+
+<nav style="background-color: #c5e1a5;" class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid">
+    <a  class="navbar-brand sans" href="#">Digital Voting System</a><img style="border-right: solid 3px;padding-right: 5px;" src="/media/elections.png" height="40" />
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'Home'%}">Home</a>
+        </li> -->
+       <!--  <nav style="background-color:white;" class="navbar navbar-expand-lg sticky-top">
+  <div class="container-fluid"> -->
+    <!-- <a  class="navbar-brand sans" href="#">Skin disease prediction system</a><img style="border-right: solid 3px;padding-right: 5px;" src="/media/Doctor.webp" height="40" /> -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'Home'%}">Home</a>
+        </li>
+        {% if  request.session.type_id  == 'Admin' %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'manage_elections'%}">Manage Elections</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'manage_candidates'%}">Manage Candidates</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'manage_voters'%}">Manage Voters</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'View_Voters'%}">View Voters</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/Winner/">Winner</a>
+        </li>
+
+   
+
+        {%elif request.session.type_id == 'User' %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'profile_update'%}">Manage Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'change_password'%}">Change Password
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'view_elections'%}">View Elections</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'Winner'%}">Winner</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'voter_participation'%}">Participated</a>
+        </li>
+        
+
+    
+      </div>
+       
+
+
+
+
+  
+
+        {%endif%}
+        
+
+
+    
+      </div>
+       
+
+
+      </ul>
+      <form style="padding-right:100px ;" class="d-flex" role="search">
+       {% if  request.session.login == 'Yes' %} 
+          {% if  request.session.type_id  == 'User' %}
+            <li class="nav-item" style="list-style-type: none;"><a class = "nav-link" aria-current="page" style="color:black;">Hi,{{request.session.UserType}}</a></li>
+
+            {% elif  request.session.type_id  == 'Admin' %}
+             <li class="nav-item" style="list-style-type: none;"><a class = "nav-link" aria-current="page" style="color:black;">Hi, {{request.session.UserType}}</a></li>
+          {%endif%}
+            &nbsp;&nbsp;&nbsp;
+            <li class="nav-item" style="list-style-type: none;"><a class = "nav-link" aria-current="page" href="{% url 'Logout'%}">Log Out</a></li>
+          {%else%}
+         <li style="list-style : none;" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Login
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'Admin_Login'%}">Admin Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'login'%}">Voter Login</a></li>
+          </ul>
+        </li>
+        {%endif%}
+       
+      </form>
+    </div>
+  </div>
+</nav>
+
+{% block content %}
+
+{% endblock %}
+
+
+</body>
+ <footer style="padding: 10px 20px;background:#c5e1a5;color:black;height:44px;position:fixed;bottom:0; width: 100%;opacity: 0.7;">
+<p style="font-size: small; text-align: right;">Company ©2023. All rights reserved.</p>
+  </footer>
+
+</html>

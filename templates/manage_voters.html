@@ -1,0 +1,366 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+
+
+<div style="background-image:  url('/media/home.jpg'); background-repeat:no-repeat;background-size:cover;  height:687px; width:100%;">
+    <h1>Manage Voters</h1>
+
+    <div class="container">
+
+        <div style="display:flex;justify-content: right;align-items: right;">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: orange;">
+  Voter Aadhar Verfication
+</button>
+
+
+<!-- Modal -->
+
+            <!-- <form action="" method="POST" enctype="multipart/form-data">
+                <a class="btn btn-warning" href="/register/">Add Voters</a>
+            </form> -->
+        </div>
+
+        <br>
+        <table class="table table-dark table-hover table-stripped">
+            <thead>
+                    <th>ID</th>
+                    <th>Voter Name</th>
+                    <th style="text-align: center;" colspan="3">Action</th>
+                      
+            </thead>
+
+            <tbody>
+               {%for i in details%}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.voter_name}}</td>
+
+                    <td><input type="button" class="btn btn-info "id=" {{i.id}}
+                                                            ${{i.voter_name}}
+                                                            ${{i.Age}}
+                                                            ${{i.Gender}}
+                                                            ${{i.Address}}
+                                                            ${{i.username}}
+                                                            ${{i.password}}
+                                                            ${{i.confirm_password}}"
+                             value="View" onclick="View(this)" style="width: 100%;">
+                    </td>
+
+                    <td><input type="button" class="btn btn-secondary "id=" {{i.id}}
+                                                            ${{i.voter_name}}
+                                                            ${{i.Age}}
+                                                            ${{i.Gender}}
+                                                            ${{i.Address}}
+                                                            ${{i.username}}
+                                                            ${{i.password}}
+                                                            ${{i.confirm_password}}"
+                             value="Update" onclick="Update(this)" style="width: 100%;">
+                    </td>
+                    <td><a style="width: 100%;" class="button btn btn-danger" href="/delete_voters/{{i.id}}">Delete</a></td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal to view Doctor -->
+
+    <!-- Modal for view button -->
+<!-- View Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Voter Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/View_Voters/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="id" id="id"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label  class="form-label">Voter's Name</label>
+                    <input type="text" class="form-control" name="voter_name" id="voter_name"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Voter's Age</label>
+                    <input type="text" class="form-control" id="Age" name="Age"   readonly>
+              </div>
+              <br>
+              <div class="col-md-12">
+                <label for="inputState" class="form-label">Gender</label>
+                <input class="form-control" type="text" name="Gender" id="Gender" readonly >
+              </div>
+                <!-- <input class="form-control" type="text" name="Speciality" id="Speciality" readonly > -->
+              </div>
+
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Voter's Address</label>
+                    <input class="form-control" name="Address" id="Address" type="text" readonly>
+              </div>
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Username</label>
+                    <input class="form-control" name="username" id="username" type="text" readonly>
+              </div>
+
+              
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Modal For Update -->
+<div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Voter Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Update_Voters/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="1updateid" id="1updateid" >
+              </div>
+
+               <div class="col-md-6">
+                    <label  class="form-label">Voter's Name</label>
+                    <input type="text" class="form-control" name="1updatevoter_name" id="1updatevoter_name"  >
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Voter's Age</label>
+                    <input type="text" class="form-control" id="1updateAge" name="1updateAge"  >
+              </div>
+              <br>
+              <div class="col-md-12">
+                <label for="inputState" class="form-label">Gender</label>
+                <input class="form-control" type="text" name="1updateGender" id="1updateGender"  >
+              </div>
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Voter's Address </label>
+                    <input class="form-control" name="1updateAddress" id="1updateAddress" type="text" >
+              </div>
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Username</label>
+                    <input class="form-control" name="1updateusername" id="1updateusername" type="text" >
+              </div>
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Password</label>
+                    <input class="form-control" name="1updatepassword" id="1updatepassword" type="text" >
+              </div>
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Confirm Password</label>
+                    <input class="form-control" name="1updateconfirm_password" id="1updateconfirm_password" type="text" >
+              </div>
+
+
+
+              <div class="col-md-12 mb-3" style="display:flex;justify-content: center;align-items: center;">
+                  <input type="submit" name="" value="Update" class="btn btn-secondary">
+              </div>
+
+              
+        </form>
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+
+<!-- Modal  -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Aadharcard No</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <form id="form_id">
+      <label class="form-label">Aadhar No</label>
+      <input class="form-control" type="text" name="aadhar_no" id="aadhar_no" required>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!--Model for Adding Voter Details -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Voter Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="row g-3" method="POST" action="/Add_voter/" enctype="multipart/form-data">
+            {% csrf_token %}
+      <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="voter_name" name="voter_name" placeholder="Enter name">
+          </div>
+          <div class="form-group">
+            <label for="Age">Age:</label>
+            <input type="text" class="form-control" id="Age" name="Age" placeholder="Enter Age">
+          </div>
+          <div class="form-group">
+            <label for="Gender">Gender:</label>
+            <input type="text" class="form-control" id="Gender" name="Gender" placeholder="Enter Gender">
+          </div>
+          <div class="form-group">
+            <label for="Address">Address:</label>
+            <input type="text" class="form-control" id="Address" name="Address" placeholder="Enter Address">
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+          </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save details</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    function View(me){
+        var id                  = me.id;
+        var str                 = id.split("$");
+        var ids                 = str[0];
+        var voter_name          = str[1];
+        var Age                 = str[2];
+        var Gender              = str[3];
+        var Address             = str[4];
+        var username            = str[5];
+        var password            = str[6];
+        var confirm_password    = str[7];
+       
+
+        document.getElementById("id").value                       = ids;
+        document.getElementById("voter_name").value               = voter_name;
+        document.getElementById("Age").value                      = Age;
+        document.getElementById("Gender").value                   = Gender;
+        document.getElementById("Address").value                  = Address;
+        document.getElementById("username").value                 = username;
+        document.getElementById("password").value                 = password;
+        document.getElementById("confirm_password").value         = confirm_password;
+        $('#myModal1').modal('show');
+    }
+
+
+    function Update(me){
+        var id                  = me.id;
+        var str                 = id.split("$");
+        var ids                 = str[0];
+        var voter_name          = str[1];
+        var Age                 = str[2];
+        var Gender              = str[3];
+        var Address             = str[4];
+        var username            = str[5];
+        var password            = str[6];
+        var confirm_password    = str[7];
+       
+
+        document.getElementById("1updateid").value                     = ids;
+        document.getElementById("1updatevoter_name").value             = voter_name;
+        document.getElementById("1updateAge").value                    = Age;
+        document.getElementById("1updateGender").value                 = Gender;
+        document.getElementById("1updateAddress").value                = Address;
+        document.getElementById("1updateusername").value               = username;
+        document.getElementById("1updatepassword").value               = password;
+        document.getElementById("1updateconfirm_password").value       = confirm_password;
+        $('#myModal2').modal('show');
+    }
+
+
+    $(document).ready(function(){
+      $("#form_id").submit(function(event){
+        event.preventDefault();
+        var aadhar_no = $("input[name='aadhar_no']",this).val();
+        alert(aadhar_no);
+        $.ajax({
+        type: "POST",
+        url: '{% url 'Verification' %}',
+        data: 
+        {   
+            'aadhar_no': aadhar_no,
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        //dataType: 'json',
+        success: function (data)
+        { 
+            var reply = data["respond"];
+            if (reply == "exists1"){
+                alert('You have already Requested')
+                $('#exampleModal1').modal('show');
+             
+               // window.location.href = "../";
+            }
+            else{
+                alert('Requested')
+                window.location.href = "../";
+            }
+
+          
+        }
+    //var email = $("input[name='email']",this).val();
+  });
+});
+});
+
+
+
+
+  
+
+    </script>
+
+{%endblock%}

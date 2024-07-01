@@ -1,0 +1,20 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+{%load static%}
+
+
+
+<div style="background-image:  url('/media/voting.webp'); background-repeat:no-repeat;background-size:cover;  height:658px; width:100%;">
+    <h2>Home</h2>
+
+
+</div>
+
+{%endblock%}

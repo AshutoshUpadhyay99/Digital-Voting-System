@@ -1,0 +1,44 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+
+
+<div style="background-image:  url('/media/voting.webp'); background-repeat:no-repeat;background-size:cover;  height:658px; width:100%;">
+    
+
+    <div  style="display: flex;justify-content: center;align-items: center;padding-top: 50px;padding-right: 100px;">
+        <div style="height: 360px;width: 400px;border: solid 2px;border-radius: 5px;background-color:rgba(255,253,208,0.5);">
+            <br>
+            <center><h3>User Login</h3></center>
+            <hr>
+            <form action="/login/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %} 
+            <div class="container row">
+               <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" name="username" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="formGroupExampleInput" name="password" required>
+                </div>
+
+                <div class="mb-3"  style="display: flex;justify-content: center;align-items: center;">
+                    <input class="btn btn-secondary" type="submit" name="submit">
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

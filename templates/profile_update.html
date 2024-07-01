@@ -1,0 +1,66 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+<div style="background-image:  url('/media/voting.webp'); background-repeat:no-repeat;background-size:cover;  height:658px; width:100%;">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Voter Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+                {%for i in details%}
+        <form class="row g-3" method="POST" action="/profile_update/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="updateid" value="{{i.id}}" id="updateid" readonly>
+              </div>
+
+               <div class="col-md-6">
+                    <label  class="form-label">Voter's Name</label>
+                    <input type="text" class="form-control" name="updatevoter_name" value="{{i.voter_name}}"  id="updatevoter_name"  >
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Voter's Age</label>
+                    <input type="text" class="form-control" value="{{i.Age}}" id="updateAge" name="updateAge"  >
+              </div>
+              <br>
+              <div class="col-md-6">
+                <label for="inputState" class="form-label">Gender</label>
+                <input class="form-control" type="text" name="updateGender" value="{{i.Gender}}" id="updateGender"  >
+              </div>
+              <div class="col-md-6">
+                    <label for="inputZip" class="form-label">Voter's Address </label>
+                    <input class="form-control" name="updateAddress" value="{{i.Address}}" id="updateAddress" type="text" >
+              </div>
+             
+
+              <div class="col-md-12 mb-3" style="display:flex;justify-content: center;align-items: center;">
+                  <input type="submit" name="" value="Update" class="btn btn-secondary">
+              </div>
+
+              
+        </form>
+        {% endfor %}
+    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+              <br>
+              <br>
+</div>
+{% endblock %}

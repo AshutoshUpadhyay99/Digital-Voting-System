@@ -1,0 +1,43 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+{%load static%}
+
+
+
+<div style="background-image:  url(''); background-repeat:no-repeat;background-size:cover;  height:687px; width:100%;">
+    <h1>View Voter Details</h1>
+
+    <div class="container">
+        <table class="table table-dark table-hover table-stripped">
+            <thead>
+                <th>Id</th>
+                <th>voter_name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Address</th>
+            </thead>
+
+            <tbody>
+                {%for i in details%}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.voter_name}}</td>
+                    <td>{{i.Age}}</td>
+                    <td>{{i.Gender}}</td>
+                    <td>{{i.Address}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{%endblock%}

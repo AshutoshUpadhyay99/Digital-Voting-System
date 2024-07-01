@@ -1,0 +1,43 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            $('#get-winner-btn').click(function() {
+                var election_name = $('#election-name-input').val();
+                $.ajax({
+                    url: '/get_winner/',
+                    type: 'POST',
+                    data: {'election_name': election_name},
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    success: function(response) {
+                        $('#winner-name').text(response.winner);
+                        $('#winner-votes').text(response.votes);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>WINNER</h1>
+    <label for="election-name-input">Election Name:</label>
+    <input id="election-name-input" type="text">
+    <button id="get-winner-btn">Get Winner</button>
+    <br><br>
+    <div id="winner">
+        <h2>Winner Name:</h2>
+        <p>Name: <span id="winner-name"></span></p>
+        <p>Votes: <span id="winner-votes"></span></p>
+    </div>
+</body>
+</html>
+{% endblock %}

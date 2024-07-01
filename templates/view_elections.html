@@ -1,0 +1,94 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+
+
+<div style="background-image:  url('/media/voting.webp'); background-repeat:no-repeat;background-size:cover;  height:687px; width:100%;">
+    <h1>View Election Details</h1>
+
+    <div class="container">
+        <table class="table table-dark table-hover table-stripped">
+            <thead>
+                <th>Id</th>
+                <th>Election Name</th>
+                <th>Election Category</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Election Commision</th>
+                <th>State</th>
+                <th colspan="2">Cast Vote<th>
+            </thead>
+
+            <tbody>
+                {%for i in details%}
+                <tr>
+                    <td id="ua">{{i.id}}</td>
+                    <td class="ub">{{i.election_name}}</td>
+                    <td >{{i.election_category}}</td>
+                    <td >{{i.start_date}}</td>
+                    <td >{{i.end_date}}</td>
+                    <td >{{i.election_commission}}</td>
+                    <th >{{i.state}}</th>
+                    <td><a href="/view_candidate/{{i.election_name}}" id="button1" name="button1" value="{{ i.id }}" class="btn btn-primary" >View Candidates</a></td>
+                       <!-- <td><button onclick="sendData()">Send Data</button></td> -->
+
+
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+
+    
+    $(document).ready(function() {
+$(":button").click(function(event){
+  if($(this).prop("id") == "button1"){
+   var No1 = $(this).prop("value");
+   console.log(No1)
+
+    </script>
+ 
+ <script>
+
+function sendData() {
+  // Extract data from the template
+  
+  alert('Hello')
+  // Send data to the Django view via AJAX
+  $.ajax({
+    url: '{% url 'view_elections' %}',
+    type: 'POST',
+    data: 
+    {
+    'Aid':document.getElementById('ua').value(),
+    'csrfmiddlewaretoken': '{{ csrf_token }}',},
+    success: function(response) {
+      console.log(response);
+    },
+    error: function(xhr, status, error) {
+      console.log(error);
+    }
+  });
+}
+
+
+
+
+
+    </script>
+
+{%endblock%}

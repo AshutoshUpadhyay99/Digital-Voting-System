@@ -1,0 +1,73 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+
+<style>
+    .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.box > div { /*The > denotes only the first or immediate child will be affected*/
+  width: 600px;
+  height: auto;
+  /*border: dotted;
+*/
+}
+</style>
+
+<div style="background-image:  url('/media/home.jpg'); background-repeat:no-repeat;background-size:cover;  height:687px; width:100%;">
+    
+    <div class="box">
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <div class="row">
+            <div class="col-md-4">
+                <img style="height: 200px;width: 180px;" src="/media/vote.png">
+
+            </div>
+
+            <div class="col-md-8">
+                <form method="POST" action="/Add_Elections/" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1>Add Elections</h1>
+                <hr>
+                <label class="form-label">Election Name</label>
+                <input class="form-control" type="text" name="election_name" required>
+                <br>
+
+                <label class="form-label">Election Category</label>
+                <input class="form-control" type="text" name="election_category" required>
+                <br>
+                <label class="form-label">Start Date</label>
+                <input class="form-control" type="date" name="start_date" required>
+                <br>
+                <label class="form-label">End Date</label>
+                <input class="form-control" type="date" name="end_date" required>
+                <br>
+
+                <label class="form-label">Election Commission</label>
+                <input class="form-control" type="text" name="election_commission" required>
+                <br>
+                <label class="form-label">State</label>
+                <input class="form-control" type="text" name="state" required>
+                <br>
+
+                <input class="btn btn-secondary" type="submit" name="" value="Add Election Detials">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{%endblock%}

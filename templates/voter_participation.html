@@ -1,0 +1,81 @@
+{% extends 'Base.html'%}
+{% block content%}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+{%load static%}
+
+
+
+<div style="background-image:  url('/media/voting.webp'); background-repeat:no-repeat;background-size:cover;  height:658px; width:100%;">
+    <div class="container" style="padding-top: 20px;">
+        <h1>Participated Elections</h1>
+        <table class="table table-info table-stripped table-hover">
+            <thead>
+                <th>ID</th>
+                <th>voter_id</th>
+                <th>election_id</th>
+                <th>candidate_id</th>
+                <th>candidate_name</th>
+                <th>political_party</th>
+                <th>election_name</th>
+                <th>Date</th>
+            </thead>
+
+            <tbody>
+                {%for i in participated_elections%}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.voter_id}}</td>
+                    <td>{{i.election_id}}</td>
+                    <td>{{i.candidate_id}}</td>
+                    <td>{{i.candidate_name}}</td>
+                    <td>{{i.political_party}}</td>
+                    <td>{{i.election_name}}</td>
+                    <td>{{i.Date}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+        <br>
+        <h1>Pending Elections</h1>
+        <table class="table table-dark table-hover table-stripped">
+            <thead>
+                <th>Id</th>
+                <th>Election Name</th>
+                <th>Election Category</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Election Commision</th>
+                <th>State</th>
+                <th>Cast Vote</th>
+            </thead>
+
+            <tbody>
+                {%for i in pending_elections%}
+                <tr>
+                    <td id="ua">{{i.id}}</td>
+                    <td class="ub">{{i.election_name}}</td>
+                    <td >{{i.election_category}}</td>
+                    <td >{{i.start_date}}</td>
+                    <td >{{i.end_date}}</td>
+                    <td >{{i.election_commission}}</td>
+                    <th >{{i.state}}</th>
+                    <td><a href="/view_candidate/{{i.election_name}}" id="button1" name="button1" value="{{ i.id }}" class="btn btn-primary" >View Candidates</a></td>
+                       <!-- <td><button onclick="sendData()">Send Data</button></td> -->
+
+
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{%endblock%}
