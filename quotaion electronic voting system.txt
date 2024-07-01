@@ -1,0 +1,37 @@
+Admin:
+•	Login: 
+-	Admin can login using id and password.
+•	Manage Elections:
+-	Add/update/delete/view Elections.
+•	Manage Candidates:
+-	Add/update/delete/view Candidates.
+•	Manage Voters:
+-	Add/update/delete/view Voters.
+•	View Votes:
+-	list of elections.
+-	List of voters
+-	Winner
+-	Verify data with block created to know if its tampered
+Voter:
+•	Login:
+-	User can login in his personal account using id and password.
+•	Profile:
+-	User can view and update his profile.
+•	Change Password:
+-	can change the password within app
+•	Elections:
+-	Pending / Participated
+-	View elections
+-	View Candidates
+-	Cast Vote if not 
+-	Winner will be shown if election is complete
+
+
+
+
+
+
+
+
+
+
